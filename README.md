@@ -16,3 +16,8 @@ This framework is designed for offline-first, low-resource (CPU-lawas) environme
 Licensed under the MIT License - see the LICENSE file for details.
 # No external dependencies required.
 # Built for native Python 3.x performance.
+
+⚠️ DISCLAIMER
+This project is an experimental, offline-first research framework
+for integrity auditing and anomaly detection.
+It does NOT bypass, exploit, or interfere with external security systems.
