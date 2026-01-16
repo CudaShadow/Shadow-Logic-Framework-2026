@@ -1,0 +1,121 @@
+# shadow_logic_ai.py
+# Offline Neuro-Symbolic Anomaly Auditor
+# CPU-lawas friendly | Zero-Trust | No Cloud | No Bypass
+
+import os
+import time
+import hashlib
+import random
+
+# ======================================================
+# SECTION 1 — VIDEO TEMPORAL INTEGRITY (AV-SECURITY)
+# ======================================================
+
+def frame_hash(frame_bytes):
+    return hashlib.md5(frame_bytes).hexdigest()
+
+class VideoTemporalAuditor:
+    def __init__(self):
+        self.last_hash = None
+        self.last_time = None
+        self.anomalies = []
+
+    def ingest_frame(self, frame_bytes, timestamp):
+        h = frame_hash(frame_bytes)
+
+        if self.last_hash:
+            if h == self.last_hash:
+                self.anomalies.append("Duplicate frame detected")
+
+            dt = timestamp - self.last_time
+            if dt < 0.01:
+                self.anomalies.append("Suspicious ultra-short frame (possible subliminal)")
+
+        self.last_hash = h
+        self.last_time = timestamp
+
+    def report(self):
+        return {
+            "status": "OK" if not self.anomalies else "ANOMALY",
+            "findings": self.anomalies
+        }
+
+# ======================================================
+# SECTION 2 — LOGIC-LOOP BEHAVIOR SIMULATOR (SAFE)
+# ======================================================
+
+class LogicLoopSimulator:
+    """
+    Simulates context-driven human behavior
+    WITHOUT targeting any external service
+    """
+
+    def __init__(self):
+        self.context = None
+
+    def next_action(self, stimulus):
+        if stimulus == self.context:
+            delay = random.uniform(1.2, 2.8)
+            action = "hesitate"
+        else:
+            delay = random.uniform(0.4, 1.6)
+            action = "decide"
+
+        self.context = stimulus
+        time.sleep(delay)
+        return action, round(delay, 2)
+
+# ======================================================
+# SECTION 3 — OFFLINE PRIVACY FLOW AUDITOR
+# ======================================================
+
+class PrivacyShadowAuditor:
+    def __init__(self):
+        self.events = []
+
+    def log_event(self, source, data_type, intent):
+        self.events.append({
+            "source": source,
+            "data": data_type,
+            "intent": intent
+        })
+
+    def score(self):
+        risk = 0
+        for e in self.events:
+            if e["data"] == "metadata" and e["intent"] == "unknown":
+                risk += 2
+            if e["source"] == "background" and e["intent"] == "analytics":
+                risk += 1
+        return {
+            "privacy_score": max(0, 10 - risk),
+            "risk_level": "LOW" if risk < 3 else "MEDIUM" if risk < 6 else "HIGH"
+        }
+
+# ======================================================
+# DEMO MAIN (SAFE, OFFLINE)
+# ======================================================
+
+if __name__ == "__main__":
+    print("🕶️ Shadow-Logic AI — Offline Auditor\n")
+
+    # ---- Video Integrity Demo ----
+    auditor = VideoTemporalAuditor()
+    fake_frame = b"frame_data"
+
+    auditor.ingest_frame(fake_frame, time.time())
+    auditor.ingest_frame(fake_frame, time.time() + 0.005)
+
+    print("AV-Security:", auditor.report())
+
+    # ---- Logic Loop Demo ----
+    logic = LogicLoopSimulator()
+    print("Logic Action:", logic.next_action("menu_click"))
+    print("Logic Action:", logic.next_action("menu_click"))
+
+    # ---- Privacy Audit Demo ----
+    privacy = PrivacyShadowAuditor()
+    privacy.log_event("background", "metadata", "unknown")
+    privacy.log_event("foreground", "user_input", "expected")
+
+    print("Privacy Audit:", privacy.score())
