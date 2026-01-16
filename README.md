@@ -14,3 +14,5 @@ This framework is designed for offline-first, low-resource (CPU-lawas) environme
 
 ## License
 Licensed under the MIT License - see the LICENSE file for details.
+# No external dependencies required.
+# Built for native Python 3.x performance.
